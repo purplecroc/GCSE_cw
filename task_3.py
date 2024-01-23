@@ -148,7 +148,7 @@ def quiz():
                     i = int(input("answer (1, 2, 3, 4)? "))
                     if i in range(1,5):
                         player_answer = i
-                except:
+                except ValueError:
                     i = None
             (_, correct) = answers[player_answer-1]
             if correct == True:
