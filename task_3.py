@@ -34,8 +34,12 @@ def store_login_details(username, password):
 # ENDSUBROUTINE
 
 def get_user_and_password():
-    username = input("input username ")
-    password = input("input password ")
+    username = input("input username: ")
+    while True:
+        password = input("input password: ") ## TEST THIS LATER
+        if len(password) >= 8:
+            break
+        print("password must be more than 8 characters")
     return (username, password)
 
 # SUBROUTINE validate_user(username, password)​
@@ -158,6 +162,18 @@ def quiz():
     print("thank you for playing")
     return score
 
+# SUBROUTINE add_score(username, score)​
+#     file <- openWrite("scores.txt")​
+#     file.writeLine(username + ":" + score)​
+#     file.close()​
+# ENDSUBROUTINE
+
+def add_score(username, score):
+    file = open("scores.txt", "a")
+    line = username + ":" + score
+    file.writelines(line)
+    file.close()
+
 # ask_question("blah?", ["b;ah", "bleh", "bloo"])
 
 # username = None
@@ -165,9 +181,9 @@ def quiz():
 #     username = login()
 # print(username)
 
-# def play_quiz():
-#     username = login()
-#     score = quiz()
+def play_quiz():
+    username = login()
+    score = quiz()
     
 
 quiz()
