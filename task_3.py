@@ -26,7 +26,7 @@ def store_login_details(username, password):
 def get_user_and_password():
     username = input("input username: ")
     while True:
-        password = input("input password: ") ## TEST THIS LATER
+        password = input("input password: ")
         if len(password) >= 8:
             break
         print("password must be more than 8 characters")
@@ -231,9 +231,14 @@ def sort_and_output():
 #sort_and_output()
 
 def play_quiz():
+    print("Welcome to the quiz")
+    # Ask for the user to login
     username = login()
+    # Play the quiz
     score = quiz()
+    # Add the players score to the high score file
     add_score(username, score)
+    # Output the top 5 scores
     sort_and_output()
     
     
