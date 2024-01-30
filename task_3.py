@@ -1,17 +1,7 @@
 USER_PASSWORD_FILE = "passwordfile.txt"
+HIGH_SCORES_FILE = "scores.txt"
 
-QUESTIONS = {
-    "Question 1": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    "Question 2": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    "Question 3": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    # "Question 4": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    # "Question 5": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    # "Question 6": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    # "Question 7": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    # "Question 8": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    # "Question 9": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-    # "Question 10": [("Answer 1.1", True), ("Answer 1.2", False), ("Answer 1.3", False), ("Answer 1.4", False)],
-}
+from questions import QUESTIONS
 
 # SUBROUTINE store_login_details(username, password)​
 #     file <- openWrite("passwordfile.txt")​
@@ -171,7 +161,7 @@ def quiz():
 # ENDSUBROUTINE
 
 def add_score(username, score):
-    file = open("scores.txt", "a")
+    file = open(HIGH_SCORES_FILE, "a")
     line = username + ":" + str(score) + "\n"
     file.writelines(line)
     file.close()
@@ -215,7 +205,7 @@ def selection_sort(array):
 # ENDSUBROUTINE
         
 def sort_and_output():
-    file = open("scores.txt", "r")
+    file = open(HIGH_SCORES_FILE, "r")
     scores = []
     lines = file.readlines()
     for line in lines:
