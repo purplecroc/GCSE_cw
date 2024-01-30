@@ -8,7 +8,6 @@ from questions import QUESTIONS
 #     file.wrtireLine(username + ":" + password)​
 #     file.close()​
 # ENDSUBROUTINE
-
 def store_login_details(username, password):
     file = open(USER_PASSWORD_FILE, "a")
     line = username + ":" + password + "\n"
@@ -22,7 +21,6 @@ def store_login_details(username, password):
 #     password <- USERINPUT​
 #     RETURN (username, password)​
 # ENDSUBROUTINE
-
 def get_user_and_password():
     username = input("input username: ")
     while True:
@@ -44,7 +42,6 @@ def get_user_and_password():
 #     file.close()​
 #     RETURN False​
 # ENDSUBROUTINE
-
 def validate_user(username, password):
     file = open(USER_PASSWORD_FILE, "r")
     ret = None
@@ -69,7 +66,6 @@ def validate_user(username, password):
 #             IF validate_user(username, password)​
 #                 RETURN username ​
 # ENDSUBROUTINE   
-
 def login():
     command = input("new or existing user? ").upper()
     if command == "NEW":
@@ -90,14 +86,11 @@ def login():
 #   PRINT(answer)​
 #  ENDFOR​
 # ENDSUBROUTINE
-
 def ask_question(question, answers):
     print("Q:",question)
     for index, (answer, correct) in enumerate(answers):
         print("A " + str(index + 1) + ":", answer)
     
-        
-
 # SUBROUTINE play_again()​
 #  WHILE TRUE​
 #   PRINT("play again (y/n)?")​
@@ -108,7 +101,6 @@ def ask_question(question, answers):
 #   PRINT("Invalid input")​
 #  ENDWHILE​
 # ENDSUBROUTINE
-
 def play_again():
     while True:
         response = input("play again (y/n)? ").upper()
@@ -129,7 +121,6 @@ def play_again():
 #  ENDWHILE​
 #  PRINT("Thank you for playing")
 # ENDSUBROUTINE
-
 def quiz():
     playing_quiz = True
     score = 0
@@ -159,7 +150,6 @@ def quiz():
 #     file.writeLine(username + ":" + score)​
 #     file.close()​
 # ENDSUBROUTINE
-
 def add_score(username, score):
     file = open(HIGH_SCORES_FILE, "a")
     line = username + ":" + str(score) + "\n"
@@ -179,7 +169,6 @@ def add_score(username, score):
 #         array[largest_index] <- temp​
 #     ENDFOR​
 # ENDSUBROUTINE
-
 def selection_sort(array):
     for i in range(len(array)):
         largest_index = i
@@ -202,8 +191,7 @@ def selection_sort(array):
 #     FOR i in range(5)​
 #         PRINT(sorted[i])​
 #     ENDFOR​
-# ENDSUBROUTINE
-        
+# ENDSUBROUTINE       
 def sort_and_output():
     file = open(HIGH_SCORES_FILE, "r")
     scores = []
@@ -220,16 +208,6 @@ def sort_and_output():
         (name, score) = scores[i]
         print(i+1, ": ", name, "scored", score)
 
-
-# ask_question("blah?", ["b;ah", "bleh", "bloo"])
-
-# username = None
-# while username == None:
-#     username = login()
-# print(username)
-
-#sort_and_output()
-
 def play_quiz():
     print("Welcome to the quiz")
     # Ask for the user to login
@@ -241,6 +219,4 @@ def play_quiz():
     # Output the top 5 scores
     sort_and_output()
     
-    
-
 play_quiz()
