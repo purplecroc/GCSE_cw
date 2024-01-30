@@ -21,7 +21,7 @@ QUESTIONS = {
 
 def store_login_details(username, password):
     file = open(USER_PASSWORD_FILE, "a")
-    line = username + ":" + password
+    line = username + ":" + password + "\n"
     file.writelines(line)
     file.close()
 
@@ -60,7 +60,7 @@ def validate_user(username, password):
     ret = None
     lines = file.readlines()
     for line in lines:
-        (user, pwd) = line.split(":")
+        (user, pwd) = line.strip().split(":")
         if user == username and pwd == password:
             file.close()
             return True
@@ -144,12 +144,14 @@ def quiz():
     playing_quiz = True
     score = 0
     while playing_quiz:
+        # Reset the score if we are playing again
+        score = 0
         for question, answers in QUESTIONS.items():
             ask_question(question, answers)
             player_answer = None
             while player_answer == None:
                 try:
-                    i = int(input("answer (1, 2, 3, 4)? "))
+                    i = int(input("Answer (1, 2, 3, 4)? "))
                     if i in range(1,5):
                         player_answer = i
                 except ValueError:
@@ -157,9 +159,9 @@ def quiz():
             (_, correct) = answers[player_answer-1]
             if correct == True:
                 score += 1
-        print("you got", score, "correct")
+        print("You got", score, "correct")
         playing_quiz = play_again()
-    print("thank you for playing")
+    print("Thank you for playing")
     return score
 
 # SUBROUTINE add_score(username, score)​
@@ -170,9 +172,64 @@ def quiz():
 
 def add_score(username, score):
     file = open("scores.txt", "a")
-    line = username + ":" + score
+    line = username + ":" + str(score) + "\n"
     file.writelines(line)
     file.close()
+    
+# SUBROUTINE selection_sort(array)​
+#     FOR i in range(LEN(array))​
+#         largest_index <- i​
+#         FOR j in range(i+1,LEN(array))​
+#             IF array[j].score > array[largest_index].score​
+#                 largest_index <- j​
+#             ENDIF​
+#         ENDFOR​
+#         temp <- array[i]​
+#         array[i] <- array[largest_index]​
+#         array[largest_index] <- temp​
+#     ENDFOR​
+# ENDSUBROUTINE
+
+def selection_sort(array):
+    for i in range(len(array)):
+        largest_index = i
+        for j in range(i+1, len(array)):
+            if array[j][1] > array[largest_index][1]:
+                largest_index = j
+        temp = array[i]
+        array[i] = array[largest_index]
+        array[largest_index] = temp
+
+# SUBROUTINE sort_and_output()​​
+#     file <- openRead("scores.txt")​
+#     scores <- []​
+#     DO ​
+#         (username, score) <- file.readLine.split(":")​
+#         scores[LEN(unsorted)] <- (username, score)​
+#     UNTIL file.endOfFile()​
+#     file.close()​
+#     selection_sort(scores)​
+#     FOR i in range(5)​
+#         PRINT(sorted[i])​
+#     ENDFOR​
+# ENDSUBROUTINE
+        
+def sort_and_output():
+    file = open("scores.txt", "r")
+    scores = []
+    lines = file.readlines()
+    for line in lines:
+        (username, score) = line.strip().split(":")
+        scores.append((username, score))
+    file.close()
+    selection_sort(scores)
+    
+    print("High scores:")
+    max = min(5, len(scores))
+    for i in range(max):
+        (name, score) = scores[i]
+        print(i+1, ": ", name, "scored", score)
+
 
 # ask_question("blah?", ["b;ah", "bleh", "bloo"])
 
@@ -181,9 +238,14 @@ def add_score(username, score):
 #     username = login()
 # print(username)
 
+#sort_and_output()
+
 def play_quiz():
     username = login()
     score = quiz()
+    add_score(username, score)
+    sort_and_output()
+    
     
 
-quiz()
+play_quiz()
