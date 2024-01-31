@@ -198,6 +198,7 @@ def sort_and_output():
     lines = file.readlines()
     for line in lines:
         (username, score) = line.strip().split(":")
+        score = int(score)
         scores.append((username, score))
     file.close()
     selection_sort(scores)
@@ -218,5 +219,5 @@ def play_quiz():
     add_score(username, score)
     # Output the top 5 scores
     sort_and_output()
-    
+
 play_quiz()
